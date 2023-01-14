@@ -3,7 +3,7 @@ import pandas as  pd
 import psycopg2
 import os
 
-from functions import *
+#from functions import *
 
 app = Flask(__name__)
 # Connect to your postgres DB
