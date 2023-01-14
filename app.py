@@ -1,24 +1,24 @@
 from flask import Flask, request
 import pandas as  pd 
 import psycopg2
+import os
 
 app = Flask(__name__)
+# Connect to your postgres DB
+conn = psycopg2.connect(database="database",
+                    host="app-e7eb027c-bde8-450a-8cc0-a27b07a097a2-do-user-13321347-0.b.db.ondigitalocean.com",
+                    user=os.getenv('DB_USERNAME'),
+                    password=os.getenv('DB_PASSWORD'),
+                    port="25060")
 
-@app.route('/index', methods=['GET'])
+# Open a cursor to perform database operations
+cur = conn.cursor()
+
+
+@app.route('/', methods=['GET'])
 def index():
-    try:
-        # Connect to your postgres DB
-        conn = psycopg2.connect(database="database",
-                            host="app-e7eb027c-bde8-450a-8cc0-a27b07a097a2-do-user-13321347-0.b.db.ondigitalocean.com",
-                            user="database",
-                            password="AVNS_1ko_-bo8AxceK550H2u",
-                            port="25060")
+    return '<p>I have the high ground!</p>'
 
-        # Open a cursor to perform database operations
-        cur = conn.cursor()
-        return '<p>Connected Succesfully!<p>'
-    except Exception as e:
-        return e
     
 
 if __name__ == '__main__':
