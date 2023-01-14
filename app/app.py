@@ -1,7 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import pandas as  pd 
 import psycopg2
 import os
+
+from functions import *
 
 app = Flask(__name__)
 # Connect to your postgres DB
@@ -21,6 +23,10 @@ def who():
     conn.commit()
     cur.close()
     return f"<p>{name} has the highground</p>"
+
+@app.route("/first_test", methods=['GET'])
+def first_test():
+    return render_template('index.html')
 
     
 
