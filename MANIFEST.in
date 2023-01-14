@@ -1,3 +1,2 @@
-graft app/static
-graft app/templates
+graft skicourse_signup
 global-exclude *.pyc
