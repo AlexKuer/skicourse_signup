@@ -11,14 +11,16 @@ conn = psycopg2.connect(database="database",
                     password=os.getenv('DB_PASSWORD'),
                     port="25060")
 
-@app.route('/', methods=['GET'])
-def index():
+@app.route('/who', methods=['GET'])
+def who():
+    name = request.args.get('name')
+    name = 'Alexander' if name is None else name
     # Open a cursor to perform database operations
     cur = conn.cursor()
-    cur.execute("INSERT INTO testtable (spalte_1) VALUES ('I still have the highground')")
+    cur.execute(f"INSERT INTO testtable (spalte_1) VALUES ('{name} has the highground')")
     conn.commit()
     cur.close()
-    return '<p>I still have the high ground!</p>'
+    return f"<p>{name} has the highground</p>"
 
     
 
