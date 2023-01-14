@@ -1,1 +1,1 @@
-name='apps'
+name='app'
