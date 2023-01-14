@@ -11,13 +11,14 @@ conn = psycopg2.connect(database="database",
                     password=os.getenv('DB_PASSWORD'),
                     port="25060")
 
-# Open a cursor to perform database operations
-cur = conn.cursor()
-
-
 @app.route('/', methods=['GET'])
 def index():
-    return '<p>I have the high ground!</p>'
+    # Open a cursor to perform database operations
+    cur = conn.cursor()
+    cur.execute("INSERT INTO testtable (spalte_1) VALUES ('I still have the highground')")
+    conn.commit()
+    cur.close()
+    return '<p>I still have the high ground!</p>'
 
     
 
