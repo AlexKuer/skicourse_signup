@@ -3,7 +3,7 @@ import pandas as  pd
 import psycopg2
 import os
 
-from functions import test
+from skicourse_signup.functions import test
 test()
 
 app = Flask(__name__)
