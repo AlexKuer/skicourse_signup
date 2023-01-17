@@ -27,7 +27,7 @@ def who():
 
 @app.route('/')
 def index():
-    return render_template('anmeldung.html')
+    return redirect(url_for('anmeldung'))
 
 @app.route("/anmeldung", methods=['GET', 'POST'])
 def anmeldung():
