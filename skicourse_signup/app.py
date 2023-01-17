@@ -4,7 +4,7 @@ import psycopg2
 import os
 
 # Just to remember how to import
-import skicourse_signup.functions
+#import skicourse_signup.functions
 
 app = Flask(__name__)
 # Connect to your postgres DB
@@ -13,10 +13,6 @@ conn = psycopg2.connect(database="database",
                     user=os.getenv('DB_USERNAME'),
                     password=os.getenv('DB_PASSWORD'),
                     port="25060")
-
-@app.route('/cover', methods=['GET'])
-def cover():
-    return render_template('cover.html')
 
 @app.route('/who', methods=['GET'])
 def who():
@@ -33,7 +29,14 @@ def who():
 def anmeldung():
     if request.method == 'POST':
         name = request.form['name']
-        return render_template('anmeldung.html', name=name)
+        option = request.form['option']
+
+        # Open a cursor to perform database operations
+        cur = conn.cursor()
+        cur.execute(f"INSERT INTO skikurs_demo (name, option) VALUES ('{name}', '{option}')")
+        conn.commit()
+        cur.close()
+        return render_template('anmeldung_bestaetigung.html', name=name, option=option)
     else:
         return render_template('anmeldung.html')
 
@@ -56,4 +59,4 @@ def download_merkblatt():
     
 
 if __name__ == '__main__':
-    app.run("0.0.0.0", port=5000, debug=True)
+    app.run("0.0.0.0", port=5000, debug=False)
