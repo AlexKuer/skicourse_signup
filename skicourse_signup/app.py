@@ -1,10 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 import pandas as  pd 
 import psycopg2
 import os
 
-from skicourse_signup.functions import test
-test()
+from functions import functions
+functions.test()
 
 app = Flask(__name__)
 # Connect to your postgres DB
@@ -29,9 +29,29 @@ def who():
     cur.close()
     return f"<p>{name} has the highground</p>"
 
-@app.route("/first_test", methods=['GET'])
-def first_test():
-    return render_template('index.html')
+@app.route("/anmeldung", methods=['GET', 'POST'])
+def anmeldung():
+    if request.method == 'POST':
+        name = request.form['name']
+        return render_template('anmeldung.html', name=name)
+    else:
+        return render_template('anmeldung.html')
+
+@app.route('/merkblatt', methods=['GET'])
+def merkblatt():
+    return render_template('merkblatt.html')
+@app.route('/kontakte', methods=['GET'])
+def kontakte():
+    return render_template('kontakte.html')
+
+@app.route("/download_merkblatt", methods=['GET', 'POST'])
+def download_merkblatt():
+    # Appending app path to upload folder path within app root folder
+    path = os.path.join(os.getcwd(),'skicourse_signup/static/files/MERKBLATT_Skikurse_2022.pdf')
+    # Returning file from appended path
+    return send_file(path, as_attachment=True)
+
+
 
     
 

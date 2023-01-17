@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>UiKit-Template</title>
+        <title>SV Haiming - Skikurs Anmeldung</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="static/css/uikit.min.css" />
         <script src="static/js/uikit.min.js"></script>
         <script src="static/js/uikit-icons.min.js"></script>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../static/pics/favicon_package_v0/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../static/pics/favicon_package_v0/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../static/pics/favicon_package_v0/favicon-16x16.png">
+        <link rel="manifest" href="../static/pics/favicon_package_v0/site.webmanifest">
+        <link rel="mask-icon" href="../static/pics/favicon_package_v0/safari-pinned-tab.svg" color="#d55b5b">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
 
     </head>
     <body>
+        <div class="uk-background-cover uk-background-fixed" style="background-image: url(../static/pics/Stubai.jpeg);">  
+            <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+            <nav class="uk-background-default" uk-navbar>
+                <div class="uk-navbar-left">
+                    <a href="" class="uk-navbar-item uk-logo">
+                        <img uk-svg="" src="../static/pics/header_logo.png" class="uk-margin-small-right" style="width:70%;height:auto;">
+                    </a>
+                </div>
+                <div class="uk-navbar-right uk-margin-small-left">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="{{ url_for('anmeldung')}}">Anmeldung&nbsp;</a></li>
+                        <li><a href="{{ url_for('merkblatt')}}">Merkblatt&nbsp; </a></li>
+                        <li><a href="{{ url_for('kontakte')}}">Kontakt&nbsp;</a></li>
+                </div>
+            </nav>
+            </div>
         {% block content %}
         {% endblock %}
+        </div>
     </body>
 </html>

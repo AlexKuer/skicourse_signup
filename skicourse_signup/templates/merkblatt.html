@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="uk-section uk-background-muted"style="margin:70px 70px 70px 70px">
+    <div class="uk-container ">       
+        <h1>Skikurs Merkblatt</h1>
+            <legend class="uk-legend">Download</legend>
+            <a class="btn btn-success" href="{{url_for('download_merkblatt')}}">Merkblatt 2022</a>
+    </div>
+</div>
+<div class="uk-section uk-background-transparent"style="margin:70px 70px 70px 70px"></div>
+{% endblock %}

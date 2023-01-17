@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="uk-section uk-background-muted"style="margin:70px 70px 70px 70px">
+    <div class="uk-container ">       
+        <h1>Skikurs Anmeldung</h1>
+        <form method="POST">
+            <fieldset class="uk-fieldset">
+        
+                <legend class="uk-legend">Wer möchte sich anmelden?</legend>
+        
+                <div class="uk-margin">
+                    <input name="name" class="uk-input" type="text" placeholder="Felix Neureuther" aria-label="Input">
+                </div>
+                <legend class="uk-legend">Welches Paket?</legend>
+                <div class="uk-margin"> 
+                    <select name="option" class="uk-select" aria-label="Select">
+                        <option>Komplettpaket</option>
+                        <option>Komplettpaket + 10 extra teure Waschmaschinen</option>
+                    </select>
+                </div>
+                <div class="uk-margin">
+                    <input type="Submit">
+                </div>
+            </fieldset>
+        </form>
+        {{ name }}
+    </div>
+</div>
+<div class="uk-section uk-background-transparent"style="margin:70px 70px 70px 70px"></div>
+{% endblock %}
