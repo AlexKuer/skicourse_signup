@@ -4,6 +4,7 @@ import psycopg2
 import os
 
 from functions import test
+test()
 
 app = Flask(__name__)
 # Connect to your postgres DB
@@ -12,6 +13,10 @@ conn = psycopg2.connect(database="database",
                     user=os.getenv('DB_USERNAME'),
                     password=os.getenv('DB_PASSWORD'),
                     port="25060")
+
+@app.route('/cover', methods=['GET'])
+def cover():
+    return render_template('cover.html')
 
 @app.route('/who', methods=['GET'])
 def who():
