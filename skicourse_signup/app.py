@@ -3,8 +3,8 @@ import pandas as  pd
 import psycopg2
 import os
 
-from functions import functions
-functions.test()
+# Just to remember how to import
+import skicourse_signup.functions
 
 app = Flask(__name__)
 # Connect to your postgres DB
