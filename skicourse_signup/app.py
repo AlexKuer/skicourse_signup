@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, redirect, url_for, send_file
 import pandas as  pd 
 import psycopg2
 import os
@@ -24,6 +24,10 @@ def who():
     conn.commit()
     cur.close()
     return f"<p>{name} has the highground</p>"
+
+@app.route('/')
+def index():
+    return render_template('anmeldung.html')
 
 @app.route("/anmeldung", methods=['GET', 'POST'])
 def anmeldung():
@@ -54,9 +58,5 @@ def download_merkblatt():
     # Returning file from appended path
     return send_file(path, as_attachment=True)
 
-
-
-    
-
 if __name__ == '__main__':
-    app.run("0.0.0.0", port=5000, debug=False)
+    app.run("0.0.0.0", port=5000, debug=True)
