@@ -29,17 +29,6 @@ def mailtest():
   mail.send(msg)
   return "Message sent!"
 
-@app.route('/who', methods=['GET'])
-def who():
-    name = request.args.get('name')
-    name = 'Alexander' if name is None else name
-    # Open a cursor to perform database operations
-    cur = conn.cursor()
-    cur.execute(f"INSERT INTO firsttest (spalte_1) VALUES ('{name} has the highground')")
-    conn.commit()
-    cur.close()
-    return f"<p>{name} has the highground</p>"
-
 @app.route('/')
 def index():
     return redirect(url_for('anmeldung'))
@@ -48,14 +37,34 @@ def index():
 def anmeldung():
     if request.method == 'POST':
         name = request.form['name']
-        option = request.form['option']
+        vorname = request.form['vorname']
+        jahrgang = request.form['jahrgang']
+        email = request.form['email']
+        telefon = request.form['telefon']
+        
+        strasse = request.form['strasse']
+        ort = request.form['ort']
+        
+        kurs = request.form.get('kurs')
+        tage = ['1','2','3','4']
+        kurstaglist = [request.form.get(f'kurstag{tag}') for tag in tage ]
+        kurstaglist = list(map(lambda x: 'y' if x == 'on' else 'n', kurstaglist))
+        buslist = [request.form.get(f'bus{tag}') for tag in tage]
+        buslist = list(map(lambda x: 'y' if x == 'on' else 'n', buslist))
+        kartelist = [request.form.get(f'karte{tag}') for tag in tage]
+        kartelist = list(map(lambda x: 'y' if x == 'on' else 'n', kartelist))
 
-        # Open a cursor to perform database operations
+        # Open a cursor to perform database operation
         cur = conn.cursor()
-        cur.execute(f"INSERT INTO skikurs_demo (name, option) VALUES ('{name}', '{option}')")
+        cur.execute(f"""INSERT INTO draft (name, vorname, jahrgang, email, telefon, strasse, ort, kurs, kurstaglist, buslist, kartelist) VALUES ('{name}','{vorname}', '{jahrgang}','{email}','{telefon}','{strasse}','{ort}','{kurs}','{str(kurstaglist).replace("'","")}','{str(buslist).replace("'","")}','{str(kartelist).replace("'","")}')""")
         conn.commit()
         cur.close()
-        return render_template('anmeldung_bestaetigung.html', name=name, option=option)
+
+        # Send Confirmation Mail
+        msg = Message('Bestaetigung Skikursanmeldung!', sender = 'skikurs.svhaiming@gmail.com', recipients = [email])
+        msg.html = render_template('email.html', name=name, vorname=vorname, jahrgang=jahrgang, email=email, telefon=telefon, strasse=strasse, ort=ort, kurs=kurs, kurstaglist=kurstaglist, buslist=buslist, kartelist=kartelist)
+        mail.send(msg)
+        return render_template('anmeldung_bestaetigung.html', name=name, vorname=vorname, jahrgang=jahrgang, email=email, telefon=telefon, strasse=strasse, ort=ort, kurs=kurs, kurstaglist=kurstaglist, buslist=buslist, kartelist=kartelist)
     else:
         return render_template('anmeldung.html')
 

@@ -1,30 +1,121 @@
 {% extends 'base.html'%}
 {% block content %}
-<div class="uk-section uk-background-muted"style="margin:70px 70px 70px 70px">
+<div class="uk-section uk-background-muted"style="margin:7%">
     <div class="uk-container ">       
         <h1>Skikurs Anmeldung</h1>
-        <form method="POST">
+        <form method="POST" onkeydown="return event.key != 'Enter';">
             <fieldset class="uk-fieldset">
-        
                 <legend class="uk-legend">Wer möchte sich anmelden?</legend>
-        
                 <div class="uk-margin">
-                    <input name="name" class="uk-input" type="text" placeholder="Felix Neureuther" aria-label="Input">
+                    <input name="name" class="uk-input" type="text" placeholder="Name" aria-label="Input">
+                    <input name="vorname" class="uk-input" type="text" placeholder="Vorname" aria-label="Input">
+                    <input name="jahrgang" class="uk-input" type="text" placeholder="Jahrgang" aria-label="Input">
+                    <input name="email" class="uk-input" type="text" placeholder="Email" aria-label="Input">
+                    <input name="telefon" class="uk-input" type="text" placeholder="Telefon" aria-label="Input">
                 </div>
-                <legend class="uk-legend">Welches Paket?</legend>
-                <div class="uk-margin"> 
-                    <select name="option" class="uk-select" aria-label="Select">
-                        <option>Komplettpaket</option>
-                        <option>Komplettpaket + 10 extra teure Waschmaschinen</option>
-                    </select>
-                </div>
+                <legend class="uk-legend">Adresse</legend>
                 <div class="uk-margin">
-                    <input type="Submit">
+                    <input name="strasse" class="uk-input" type="text" placeholder="Straße und Hausnummer" aria-label="Input">
+                    <input name="ort" class="uk-input" type="text" placeholder="Postleitzahl und Ort" aria-label="Input">
+                </div>
+                <legend class="uk-legend">Welcher Kurs an welchen Tagen</legend>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <p>Erklärung:&nbsp;</p>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_1_explanation">1</button>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_2_explanation">2</button>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_3_explanation">3</button>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_4_explanation">4</button>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_r5_explanation">R5</button>
+                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #kurs_safari_explanation">Safari</button>
+                </div>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <p>Kursauswahl:&nbsp;</p>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="1" checked>1</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="2">2</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="3">3</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="4">4</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="R5">R5</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="Safari">Safari</label>
+                    <label><input class="uk-radio" type="radio" name="kurs" value="Kein Kurs">Kein Kurs - Freifahrer</label>
+                </div>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <p>Skikursteilname an:&nbsp;</p>
+                    <label><input class="uk-checkbox" type="checkbox" name="kurstag1" checked>Tag 1</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="kurstag2">Tag 2</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="kurstag3">Tag 3</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="kurstag4">Tag 4</label>
+                </div>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <p>Skibus benötigt an:&nbsp;</p>
+                    <label><input class="uk-checkbox" type="checkbox" name="bus1" checked>Tag 1</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="bus2">Tag 2</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="bus3">Tag 3</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="bus4">Tag 4</label>
+                </div>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <p>Skikarte benötigt an:&nbsp;</p>
+                    <label><input class="uk-checkbox" type="checkbox" name="karte1" checked>Tag 1</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="karte2">Tag 2</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="karte3">Tag 3</label>
+                    <label><input class="uk-checkbox" type="checkbox" name="karte4">Tag 4</label>
+                </div>
+                <div class="uk-margin-large-top">
+                    <input class="uk-button uk-button-primary uk-button-large" type="Submit">
                 </div>
             </fieldset>
         </form>
-        {{ name }}
     </div>
 </div>
 <div class="uk-section uk-background-transparent"style="margin:70px 70px 70px 70px"></div>
+<!-- Modals for Kurs explanations -->
+<div id="kurs_1_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Kurs 1 - Einsteiger</h2>
+        <p>Voraussetzungen: Keine</p>
+        <p>Inhalt: Befahren von planen, flachen Hängen (Übungshang), Pflugbogen, Schlepplift und Sesselliftfahren</p>
+    </div>
+</div>
+<div id="kurs_2_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Kurs 2 - Fortgeschrittener</h2>
+        <p>Voraussetzungen: Beherrschen der Inhalte Einsteiger (Kurs 1)
+        <p>Inhalt: Sicheres Befahren leichter Pisten, Abbau Pflugstellung, paralleles Skifahren, Festigen der parallelen Skistellung</p>
+    </div>
+</div>
+<div id="kurs_3_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Kurs 3 - Geübter</h2>
+        <p>Voraussetzungen: Beherrschen der Inhalte Fortgeschrittener (Kurs 2)</p>
+        <p>Inhalt: Sicheres Befahren schwerer Pisten, variables Befahren schwerer Pisten, erstes Befahren sehr schwerer Pisten (schwarze Pisten), Einstieg Carven</p>
+    </div>
+</div>
+<div id="kurs_4_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Kurs 4 - Könner</h2>
+        <p>Voraussetzungen: Beherrschen der Inhalte Geübter (Kurs 3)</p>
+        <p>Inhalt: Kurze und lange Kurven, höhere Geschwindigkeit, sicheres Befahren sehr schwerer Pisten (schwarzer Pisten), variables Skifahren in jedem Gelände und unterschiedlichem Schnee (eisige Pisten tieferer Schnee, Buckel)</p>
+    </div>
+</div>
+<div id="kurs_r5_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Kurs R5 - Renngruppe</h2>
+        <p>Voraussetzungen: Spezialist oder talentierte Kinder und Jugendliche, Mutig, risikofreudig, reaktionsschnell, kräftig, ausdauernd, motiviert</p>
+        <p>Inhalt: Vielseitige Skitechnik, Variables Skifahren in jedem Gelände und jeder Schneeart, trainieren von Riesenslalom und Slalomkurven</p>
+    </div>
+</div>
+<div id="kurs_safari_explanation" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Skisafari (Erwachsene)</h2>
+        <p>Zielgruppe: Skifahrer, die ihr Variables Skifahren in jedem Gelände und unterschiedlichen Schnee- und Geländearten verbessern möchten.</p>
+        <p>Voraussetzungen: Trainierte Genussskifahrer, Freude an der Natur und am Skilauf, keine Ski-Anfänger.</p>
+        <p>Inhalt: Entwickeln einer (den individuellen Voraussetzungen) angepassten Fahrweise Verbessern der Technik und Anpassung an die individuellen Voraussetzungen. Vermitteln des Gefühls und Gespürs für den Schnee und der besten Spur auf der Piste.</p>
+    </div>
+</div>
 {% endblock %}
+
