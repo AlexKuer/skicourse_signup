@@ -1,18 +1,35 @@
 from flask import Flask, request, render_template, redirect, url_for, send_file
+from flask_mail import Mail, Message
 import pandas as  pd 
 import psycopg2
 import os
 
 # Just to remember how to import
-#import skicourse_signup.functions
+from functions.functions import test
 
 app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.web.de'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
+
 # Connect to your postgres DB
 conn = psycopg2.connect(database="database",
                     host="app-722d3265-77eb-41ff-a19b-79383a130d38-do-user-13321347-0.b.db.ondigitalocean.com",
                     user=os.getenv('DB_USERNAME'),
                     password=os.getenv('DB_PASSWORD'),
                     port="25060")
+
+@app.route("/mailtest")
+def mailtest():
+  msg = Message('Hello from the other side!', sender =   'alexander.kuermeier@web.de', recipients = ['alexander.kuermeier@web.de'])
+  msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
+  mail.send(msg)
+  return "Message sent!"
 
 @app.route('/who', methods=['GET'])
 def who():
@@ -59,4 +76,4 @@ def download_merkblatt():
     return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run("0.0.0.0", port=5000, debug=False)
+    app.run("0.0.0.0", port=5000, debug=True)
