@@ -4,9 +4,6 @@ import pandas as  pd
 import psycopg2
 import os
 
-# Just to remember how to import
-from functions.functions import test
-
 app = Flask(__name__)
 
 app.config['MAIL_SERVER']='smtp.web.de'
